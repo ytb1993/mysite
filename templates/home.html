@@ -1,0 +1,277 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block title %}
+    Ytb的blog|home
+{% endblock %}
+
+{% block header_extends %}
+    <link rel="stylesheet" href="{% static 'home.css' %}">
+    <script src="http://cdn.hcharts.cn/highcharts/highcharts.js"></script>
+    <script>
+     $(document).ready(function(){
+     $('#myCarousel').carousel({interval:3000});//每隔5秒自动轮播
+     });
+    </script>
+{% endblock %}
+
+{% block nav_home_active %}active{% endblock %}
+
+
+{% block page_header %}
+    <header class="intro-header">
+    <div align="center" id="myCarousel" class="carousel slide" data-interval="1000">
+    <!-- 轮播（Carousel）指标 -->
+    <ol class="carousel-indicators">
+        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+        <li data-target="#myCarousel" data-slide-to="1"></li>
+        <li data-target="#myCarousel" data-slide-to="2"></li>
+        <li data-target="#myCarousel" data-slide-to="3"></li>
+    </ol>
+    <!-- 轮播（Carousel）项目 -->
+    <div class="carousel-inner">
+        <div class="item active" style="position: relative;">
+            <img src="{% static 'img/article-bg.png' %}" alt="">
+            <span class="lunbo" style="position: absolute;top: 45%;left: 40%;">Try again</span>
+        </div>
+        <div class="item">
+            <img src="{% static 'img/error-bg.png' %}" alt="">
+            <span class="lunbo" style="position: absolute;top: 45%;left: 42%;">Fail again</span>
+        </div>
+        <div class="item">
+            <img src="{% static 'img/home-bg.png' %}" alt="">
+            <span class="lunbo" style="position: absolute;top: 45%;left: 38%;">Time tries truth</span>
+        </div>
+        <div class="item">
+            <img src="{% static 'img/form-bg.png' %}" alt="">
+            <span class="lunbo" style="position: absolute;top: 45%;left: 34%;">Knowledge is power</span>
+        </div>
+    </div>
+    <!-- 轮播（Carousel）导航 -->
+    <a class="carousel-control left" href="#myCarousel"
+        data-slide="prev">‹
+    </a>
+    <a class="carousel-control right" href="#myCarousel"
+        data-slide="next">›
+    </a>
+    </div>
+
+
+        <div class="container" >
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <div class="site-heading" >
+                        <h1 class="subheading">欢迎来到宝帅的个人博客</h1>
+                        <hr class="small">
+                        <span class="subheading">Share Your Knowlege</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+{% endblock %}
+
+{% block content %}
+     <!-- <h3 class="home-content">欢迎访问我的网站，随便看</h3> -->
+    <!-- 图表容器 DOM -->
+   
+    <div id="container" ></div>
+    <!--今天24小时内的热门博客 -->
+    <div class="container" >
+        <div class="row">
+            <div class="col-md-3">
+
+                <div class="panel panel-default hot-data">
+                      <div class="panel-heading">
+                        <h3 class="panel-title">今天热门博客</h3>
+                      </div>
+                        <div class="panel-body">
+                        <ul class="list-group list-types">
+                            {% for hot_data in yesterday_hot_data %}
+                          <li class="list-group-item ">
+                            <span class="badge">{{ hot_data.read_num }}</span>
+                            <a href="{% url 'blog_detail' hot_data.content_object.id %}">{{ hot_data.content_object.title }}</a>
+                          </li>
+                            {% empty %}
+                          <li>今天暂时没有热门博客</li>
+                            {% endfor %}
+                        </ul>
+                        </div>
+                </div>
+            </div>
+        
+        
+       <!--  <h3>今天热门博客</h3>
+    <ul>
+        {% for hot_data in today_hot_data %}
+        <li><a href="{% url 'blog_detail' hot_data.content_object.id %}">{{ hot_data.content_object.title }}</a>({{ hot_data.read_num }})</li>
+        
+        {% empty %}
+        <li>今天暂时没有热门博客</li>
+        {% endfor %}
+    </ul>  -->
+            <div class="col-md-3">
+                <div class="panel panel-primary hot-data">
+                      <div class="panel-heading">
+                        <h3 class="panel-title">昨日热门博客</h3>
+                      </div>
+                        <div class="panel-body">
+                        <ul class="list-group list-types">
+                            {% for hot_data in yesterday_hot_data %}
+                          <li class="list-group-item ">
+                            <span class="badge">{{ hot_data.read_num }}</span>
+                            <a href="{% url 'blog_detail' hot_data.content_object.id %}">{{ hot_data.content_object.title }}</a>
+                          </li>
+                            {% empty %}
+                          <li>昨日暂时没有热门博客</li>
+                            {% endfor %}
+                        </ul>
+                        </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="panel panel-success hot-data">
+                      <div class="panel-heading">
+                        <h3 class="panel-title">本周热门博客</h3>
+                      </div>
+                        <div class="panel-body">
+                        <ul class="list-group list-types">
+                            {% for hot_data in yesterday_hot_data %}
+                          <li class="list-group-item ">
+                            <span class="badge">{{ hot_data.read_num }}</span>
+                            <a href="{% url 'blog_detail' hot_data.content_object.id %}">{{ hot_data.content_object.title }}</a>
+                          </li>
+                            {% empty %}
+                          <li>上周暂时没有热门博客</li>
+                            {% endfor %}
+                        </ul>
+                        </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="panel panel-danger hot-data">
+                      <div class="panel-heading">
+                        <h3 class="panel-title">本月热门博客</h3>
+                      </div>
+                        <div class="panel-body">
+                        <ul class="list-group list-types">
+                            {% for hot_data in yesterday_hot_data %}
+                          <li class="list-group-item ">
+                            <span class="badge">{{ hot_data.read_num }}</span>
+                            <a href="{% url 'blog_detail' hot_data.content_object.id %}">{{ hot_data.content_object.title }}</a>
+                          </li>
+                            {% empty %}
+                          <li>本月暂时没有热门博客</li>
+                            {% endfor %}
+                        </ul>
+                        </div>
+                </div>
+            </div>
+       </div>
+    </div>
+    <!-- <div class="hot-data">
+         <h3></h3>
+    <ul>
+        {% for hot_data in yesterday_hot_data %}
+        <li><a href="{% url 'blog_detail' hot_data.content_object.id %}">{{ hot_data.content_object.title }}</a>({{ hot_data.read_num }})</li>
+        
+        {% empty %}
+        <li>昨日暂时没有热门博客</li>
+        {% endfor %}
+    </ul>
+    </div> -->
+    <!-- <div class="hot-data">
+       <h3>本周热门博客</h3>
+    <ul>
+        {% for hot_blog in hot_blogs_for_7_days %}
+        <li><a href="{% url 'blog_detail' hot_blog.id %}">{{ hot_blog.title }}</a>({{ hot_blog.read_num_sum }})</li>
+        
+        {% empty %}
+        <li>上周暂时没有热门博客</li>
+        {% endfor %}
+    </ul> 
+    </div> -->
+    <!-- <div class="hot-data">
+       <h3>本月热门博客</h3>
+    <ul>
+        {% for hot_blog in hot_blogs_for_30_days %}
+        <li><a href="{% url 'blog_detail' hot_blog.id %}">{{ hot_blog.title }}</a>({{ hot_blog.read_num_sum }})</li>
+        
+        {% empty %}
+        <li>上个月暂时没有热门博客</li>
+        {% endfor %}
+    </ul>
+    </div> -->
+    <script>
+        // 图表配置
+        var options = {
+            chart: { type: 'line' },
+            title: { text: null },
+            xAxis: {
+                categories: {{ dates|safe }},   // x 轴分类
+                tickmarkPlacement: 'on',
+                title:{ text:'过去七天阅读量变化'}
+            },
+            yAxis: {
+                title: { text: null },
+                labels:{ enabled: false },
+                gridLineDashStyle: 'Dash',
+            },
+            series: [{                              // 数据列
+                name: '阅读量',                     // 数据列名
+                data: {{ read_nums }}               // 数据
+            }],
+            plotOptions: {
+                line: {
+                    dataLabels: {
+                        enabled: true
+                    }
+                }
+            },
+            legend: { enabled: false },
+            credits: { enabled: false },
+        };
+        // 图表初始化函数
+        var chart = Highcharts.chart('container', options);
+    </script>
+{% endblock %}
+{% block footer %}
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    <li>
+                        <a href="https://www.zhihu.com/">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa  fa-stack-1x fa-inverse">知</i>
+                                </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.github.com/">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                                </span>
+                        </a>
+                    </li>
+                     <li>
+                        <a href="https://dig.chouti.com/">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa  fa-stack-1x fa-inverse">抽</i>
+                                </span>
+                        </a>
+                    </li>
+                </ul>
+                <p class="copyright text-muted">Copyright &copy; ytb的理想国 2018</p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+{% endblock %}

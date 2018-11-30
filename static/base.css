@@ -1,0 +1,17 @@
+body{
+	margin: 0;
+	padding: 0;
+    height: 100%;
+}
+
+ul.navbar-right{
+	margin-right: 0;
+}
+.background{
+    background-image: url(http://www.conyli.cc/wp-content/themes/flat/assets/img/default-background.jpg);
+    background-position: center center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+
+}
